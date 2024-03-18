@@ -34,6 +34,7 @@ public class Conta {
     private Data dataAbertura = new Data();
     private Cliente titular = new Cliente();
     private double saldo;
+    private double credito;
     private double limite;
     private static int id_geral = 1001;
     int id_conta;
@@ -76,12 +77,17 @@ public class Conta {
         return this.limite;
     }
     void setLimite(double limite) {
+        this.credito = limite;
         this.limite = limite;
     }
 
     double getSaldo(){
         return this.saldo;
     }
+    double getCredito(){
+        return this.credito;
+    }
+
     double getSaldoComLimite(){
         return this.saldo + this.limite;
     }
@@ -95,6 +101,14 @@ public class Conta {
         }
     }
 
+    boolean setSaqueCredito(double valor){
+        if (valor>0 && valor<=this.credito) {
+            this.credito -= valor;
+            return true;
+        }else{
+            return false;
+        }  
+    }
     boolean setSaque(double valor){
         if (valor>0 && valor<=this.saldo) {
             this.saldo -= valor;

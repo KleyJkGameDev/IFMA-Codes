@@ -4,7 +4,7 @@ public class Bank {
     private int number_bank;
     private boolean is_national;
     private String agencia;
-    
+    private String type_transf;
 
     public Bank(String name_bank, int number_bank, boolean is_national) {
         this.name_bank = name_bank;
@@ -47,5 +47,11 @@ public class Bank {
         this.is_national = is_national;
     }
     
+    public String getType_transf() {
+        return type_transf;
+    }
+    public void setType_transf(String type_transf) {
+        this.type_transf = type_transf;
+    }
     
 }
