@@ -1,0 +1,15 @@
+Atleta[1]:
+ - Nome: kleytinn
+ - Esporte: futebol
+ - Idade: 18
+ - Altura: 1,72
+
+Atleta[2]:
+ - Nome: paulo
+ - Esporte: volei
+ - Idade: 21
+ - Altura: 1,70
+
+
+- Mais velho: paulo, Idade: 21
+- Mais Alto: kleytinn, Altura: 1,72
