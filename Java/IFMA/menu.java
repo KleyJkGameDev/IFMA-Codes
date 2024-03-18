@@ -24,9 +24,9 @@ public class menu {
         System.out.println("Rendimento: R$"+c2.getRendimento());
         //c1.setData(10, 12, 2005);
         c1.getImprimaDados();
-        //c2.getImprimaDados();
-        //System.out.println(Conta.getTotal_contas());
-        //System.out.println(c2.getIdentificador());
+        c2.getImprimaDados();
+        System.out.println(Conta.getTotal_contas());
+        System.out.println(c2.getIdentificador());
     }
 }
 
