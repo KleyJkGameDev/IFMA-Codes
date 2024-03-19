@@ -30,7 +30,7 @@ class Data {
 public class Conta {
     private int numero;
     //private Bank banco;
-    private Bank agencia;
+    private Bank bank = new Bank();
     private Data dataAbertura = new Data();
     private Cliente titular = new Cliente();
     private double saldo;
@@ -53,10 +53,10 @@ public class Conta {
         return this.id_conta;
     }
     public String getAgencia() {
-        return agencia.getAgencia();
+        return this.bank.getAgencia();
     }
     public void setAgencia(String agencia) {
-        this.agencia.setAgencia(agencia);
+        this.bank.setAgencia(agencia);
     }
 
     public String getData() {
@@ -146,18 +146,74 @@ public class Conta {
         this.titular.setCpf(cpf);
         this.titular.setIdade(idade);
     }
-    
+   
+    public void setBankString(String name_bank, int num_bank,
+        boolean national, String agencia_bank) {
+        this.bank.setName_bank(name_bank);
+        this.bank.setNumber_bank(num_bank);
+        this.bank.setIs_national(national);
+        this.bank.setAgencia(agencia_bank);
+    }
+    public void setBank(Bank bank) {
+        this.bank = bank;
+    }
+
     double getRendimento(){
         return (this.saldo*0.1);
     }
     
     void getImprimaDados(){
-        System.out.println("--> Cliente "+this.titular.getNome()+":");
-        System.out.println("- Numero: "+this.numero);
-        System.out.println("- Agencia: "+this.agencia);
-        System.out.println("- Data: "+this.getData());
-        System.out.println("- Limite da conta: "+this.limite);
-        System.out.println("- Saldo da Conta: "+this.saldo);
-        getTitular();
+        if (checkNull() == true) {
+            System.out.println("---> DADOS DO CLIENTE <---");
+            System.out.println("#Titular:");
+            System.out.println(" - Nome: "+this.titular.getNome());
+            System.out.println(" - Sobrenome: "+this.titular.getSobre());
+            System.out.println(" - CPF: "+this.titular.getCpf());
+            System.out.println(" - Idade: "+this.titular.getIdade());
+            System.out.println("#BANCO: ");
+            System.out.println(" - Nome: "+this.bank.getName_bank());
+            System.out.println(" - Numero: "+this.bank.getNumber_bank());
+            System.out.println(" - Agencia: "+this.bank.getAgencia());
+            System.out.println(" - Tipo: "+this.bank.isIs_national());
+            System.out.println("#CONTA:");
+            System.out.println(" - ID: "+this.id_conta);
+            System.out.println(" - Data: "+this.getData());
+            System.out.println(" - Limite da conta: "+this.limite);
+            System.out.println(" - Saldo da Conta: "+this.saldo);
+            getTitular();
+        }else{
+            System.out.println("Algum dos campos nao foi prenchido");
+        }
+        
     }
+
+    boolean checkNull(){
+        if (this.titular.getNome() == null || this.titular.getCpf() == null ||
+        this.titular.getIdade() == 0 ||this.titular.getSobre() == null) {
+            System.out.println("Campos do titular não foram preenchidos");
+
+            if (this.bank.getAgencia()==null||this.bank.getName_bank()==null||
+            this.bank.getNumber_bank()==0) {
+                System.out.println("Campos do Banco não preenchidos");
+
+                if (this.dataAbertura.getDataCompleta()=="0/0/0"||this.dataAbertura.mes==0||
+                this.dataAbertura.ano==0||this.limite==0) {
+                    System.out.println("Campos da conta não preenchidos");
+                    return false;
+                }else{
+                    System.out.println("Conta passou");
+                }
+
+                return false;
+            }else{
+                System.out.println("Banco passou");
+            }
+
+            return false;
+        }else{
+            System.out.println("titular passou");
+            return true;
+        }
+    }
+
 }

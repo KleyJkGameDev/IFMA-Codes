@@ -5,12 +5,15 @@ public class App {
         //Conta c2 = new Conta("Jonas", "001.001.173-09");
         Conta c1 = new Conta();
         Conta c2 = new Conta();
-        Transfer t = new Transfer();
         //Cliente clt1 = new Cliente();
         //Java.IFMA.cliente.Cliente tesCliente = new Java.IFMA.cliente.Cliente();
         //c1.setTitularObject(clt1);
-        c1.setTitularString("Kley", "Lima", "XXX.XXX.XXX-X", 18);
+        c1.setTitularString("Kley", "Lima", "XXX.XXX.XXX-XX", 18);
+        //c1.setData(12, 1, 2022);
+        c1.setBankString("Inter", 1234, false, "0001");
         c2.setTitularString("Jonas", "Grey", "XXX.XXX.XXX-XX", 18);
+        c2.setData(25, 11, 2024);
+        c2.setBankString("Nubank", 4321, true, "0004");
         c1.setLimite(10000.0);
         c2.setLimite(10000.0);
 
@@ -43,5 +46,6 @@ public class App {
         c1.setSaqueCredito(400.0);
         System.out.println("Credito 1: "+c1.getCredito());
         System.out.println("Saldo 1: R$"+c1.getSaldo());
+        c1.getImprimaDados();
     }
 }
