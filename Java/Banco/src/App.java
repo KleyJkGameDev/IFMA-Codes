@@ -1,4 +1,9 @@
-
+/**
+ * Classe responsável por gerenciar outras classes
+ * @author Kleyton Lima
+ * @version 1.0.0
+ * @apiNote Não completo
+ */
 public class App {
     
     /** 

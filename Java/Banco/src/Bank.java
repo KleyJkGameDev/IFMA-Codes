@@ -1,15 +1,28 @@
-
+/**
+ * Classe responsável por gerenciar dados do Banco
+ * @author Kleyton Lima
+ */
 public class Bank {
     private String name_bank;
     private int number_bank;
     private boolean is_national;
     private String agencia;
 
+    /**
+     * Construtor personalizado com 3 parâmetros
+     * Preencher previamente name, number e is_national
+     * @param String name_bank
+     * @param int number_bank
+     * @param boolean is_national
+     */
     public Bank(String name_bank, int number_bank, boolean is_national) {
         this.name_bank = name_bank;
         this.number_bank = number_bank;
         this.is_national = is_national;
     }
+    /**
+     * Construtor sem parâmetros - (Padrão)
+     */
     public Bank(){
         
     }
