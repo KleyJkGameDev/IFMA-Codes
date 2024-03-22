@@ -1,5 +1,12 @@
 
 public class App {
+    
+    /** 
+     * @param args
+     * Classe Responsável por executar o código no geral
+     * @author Kleyton Lima
+     * @throws Exception
+     */
     public static void main(String[] args) throws Exception {
         // Conta c1 = new Conta("Kleytinn", "025.771.673-42");
         // Conta c2 = new Conta("Jonas", "001.001.173-09");
