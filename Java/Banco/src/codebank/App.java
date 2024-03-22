@@ -60,5 +60,14 @@ public class App {
         System.out.println("Credito 1: " + c1.getCredito());
         System.out.println("Saldo 1: R$" + c1.getSaldo());
         c1.getImprimaDados();
+        Gerente gerente = new Gerente();
+        Funcionario teste = gerente;
+        Funcionario func1 = new Funcionario();
+        teste.setSalario(1000);
+        gerente.setSalario(1000);
+        func1.setSalario(1000);
+        System.out.println("boni_gerente: "+gerente.getBonifica());
+        System.out.println("boni_func: "+func1.getBonifica());
+        System.out.println("teste: "+teste.getBonifica());
     }
 }

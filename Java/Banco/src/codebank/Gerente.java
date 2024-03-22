@@ -1,0 +1,39 @@
+package codebank;
+
+public class Gerente extends Funcionario {
+    private int senha = 1234;
+    //private int numeroDeFuncionariosGerenciados;
+
+    public boolean autentica(int senha){
+        if (this.senha == senha) {
+            System.out.println("Acesso Permitido");
+            return true;
+        }else{
+            System.out.println("Acesso Negado");
+            return false;
+        }
+    }
+
+    public int getSenha() {
+        return senha;
+    }
+
+    public void setSenha(int senha) {
+        this.senha = senha;
+    }
+
+    public void imprimeDados(){
+        System.out.println("Nome: "+this.getNome());
+        System.out.println("CPF: "+this.getCpf());
+        System.out.println("Salario: "+this.getSalario());
+        System.out.println("Senha: "+this.getSenha());
+    }
+    @Override
+    public double getBonifica() {
+        //return super.getBonifica() + 100
+        return this.salario*0.15;
+    }
+    public int getNumeroDeFuncionariosGerenciados() {
+        return total_funcionarios;
+    }
+}
