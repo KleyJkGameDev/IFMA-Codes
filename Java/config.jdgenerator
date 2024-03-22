@@ -1,0 +1,73 @@
+==== CONFIGS ====		
+{
+    "base_path": "/home/kley/Desktop/IFMA Codes/Java",
+    "out": "/home/kley/Desktop/IFMA Codes/Java/javadoc",
+    "javadoc_executable": "/usr/lib/jvm/jdk-22-oracle-x64/bin/javadoc",
+    "exclude": [],
+    "raw_params": ""
+}
+
+==== COMMAND ====
+"/usr/lib/jvm/jdk-22-oracle-x64/bin/javadoc" 
+	-sourcepath "/home/kley/Desktop/IFMA Codes/Java" 
+	-d "/home/kley/Desktop/IFMA Codes/Java/javadoc" 
+	"/home/kley/Desktop/IFMA Codes/Java/Banco/src/br/com/caelum/contas/App.java"
+	"/home/kley/Desktop/IFMA Codes/Java/Banco/src/br/com/caelum/contas/Bank.java"
+	"/home/kley/Desktop/IFMA Codes/Java/Banco/src/br/com/caelum/contas/Cliente.java"
+	"/home/kley/Desktop/IFMA Codes/Java/Banco/src/br/com/caelum/contas/Conta.java"
+	"/home/kley/Desktop/IFMA Codes/Java/Banco/src/br/com/caelum/contas/ManipuladorDeContas.java"
+	"/home/kley/Desktop/IFMA Codes/Java/Banco/src/br/com/caelum/contas/TestaJar.java"
+	"/home/kley/Desktop/IFMA Codes/Java/Banco/src/br/com/caelum/contas/Transfer.java"
+	"/home/kley/Desktop/IFMA Codes/Java/Banco/src/br/com/caelum/contas/modelo/Bank.java"
+	"/home/kley/Desktop/IFMA Codes/Java/Banco/src/br/com/caelum/contas/modelo/Cliente.java"
+	"/home/kley/Desktop/IFMA Codes/Java/Banco/src/br/com/caelum/contas/modelo/Conta.java"
+	"/home/kley/Desktop/IFMA Codes/Java/Banco/src/codebank/App.java"
+	"/home/kley/Desktop/IFMA Codes/Java/Banco/src/codebank/Bank.java"
+	"/home/kley/Desktop/IFMA Codes/Java/Banco/src/codebank/Cliente.java"
+	"/home/kley/Desktop/IFMA Codes/Java/Banco/src/codebank/Conta.java"
+	"/home/kley/Desktop/IFMA Codes/Java/Banco/src/codebank/Transfer.java"
+	"/home/kley/Desktop/IFMA Codes/Java/IFMA/cliente.java"
+	"/home/kley/Desktop/IFMA Codes/Java/IFMA/conta.java"
+	"/home/kley/Desktop/IFMA Codes/Java/IFMA/menu.java"
+
+
+==== JAVADOC OUTPUT ====
+Picked up _JAVA_OPTIONS: -Dawt.useSystemAAFontSettings=on -Dswing.aatext=true
+Loading source file /home/kley/Desktop/IFMA Codes/Java/Banco/src/br/com/caelum/contas/App.java...
+Loading source file /home/kley/Desktop/IFMA Codes/Java/Banco/src/br/com/caelum/contas/Bank.java...
+Loading source file /home/kley/Desktop/IFMA Codes/Java/Banco/src/br/com/caelum/contas/Cliente.java...
+Loading source file /home/kley/Desktop/IFMA Codes/Java/Banco/src/br/com/caelum/contas/Conta.java...
+Loading source file /home/kley/Desktop/IFMA Codes/Java/Banco/src/br/com/caelum/contas/ManipuladorDeContas.java...
+Loading source file /home/kley/Desktop/IFMA Codes/Java/Banco/src/br/com/caelum/contas/TestaJar.java...
+Loading source file /home/kley/Desktop/IFMA Codes/Java/Banco/src/br/com/caelum/contas/Transfer.java...
+Loading source file /home/kley/Desktop/IFMA Codes/Java/Banco/src/br/com/caelum/contas/modelo/Bank.java...
+Loading source file /home/kley/Desktop/IFMA Codes/Java/Banco/src/br/com/caelum/contas/modelo/Cliente.java...
+Loading source file /home/kley/Desktop/IFMA Codes/Java/Banco/src/br/com/caelum/contas/modelo/Conta.java...
+Loading source file /home/kley/Desktop/IFMA Codes/Java/Banco/src/codebank/App.java...
+Loading source file /home/kley/Desktop/IFMA Codes/Java/Banco/src/codebank/Bank.java...
+Loading source file /home/kley/Desktop/IFMA Codes/Java/Banco/src/codebank/Cliente.java...
+Loading source file /home/kley/Desktop/IFMA Codes/Java/Banco/src/codebank/Conta.java...
+Loading source file /home/kley/Desktop/IFMA Codes/Java/Banco/src/codebank/Transfer.java...
+Loading source file /home/kley/Desktop/IFMA Codes/Java/IFMA/cliente.java...
+Loading source file /home/kley/Desktop/IFMA Codes/Java/IFMA/conta.java...
+Loading source file /home/kley/Desktop/IFMA Codes/Java/IFMA/menu.java...
+Constructing Javadoc information...
+/home/kley/Desktop/IFMA Codes/Java/Banco/src/br/com/caelum/contas/ManipuladorDeContas.java:2: error: package br.com.caelum.javafx.api.util does not exist
+import br.com.caelum.javafx.api.util.Evento;
+                                    ^
+/home/kley/Desktop/IFMA Codes/Java/Banco/src/br/com/caelum/contas/ManipuladorDeContas.java:8: error: cannot find symbol
+    public void criaConta(Evento evento){
+                          ^
+  symbol:   class Evento
+  location: class ManipuladorDeContas
+/home/kley/Desktop/IFMA Codes/Java/Banco/src/br/com/caelum/contas/ManipuladorDeContas.java:14: error: cannot find symbol
+    public void deposita(Evento evento){
+                         ^
+  symbol:   class Evento
+  location: class ManipuladorDeContas
+/home/kley/Desktop/IFMA Codes/Java/Banco/src/br/com/caelum/contas/TestaJar.java:3: error: package br.com.caelum.javafx.api.main does not exist
+import br.com.caelum.javafx.api.main.TelaDeContas;
+                                    ^
+4 errors
+
+

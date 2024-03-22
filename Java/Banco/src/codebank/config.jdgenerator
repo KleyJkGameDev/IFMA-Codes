@@ -1,0 +1,249 @@
+==== CONFIGS ====		
+{
+    "base_path": "/home/kley/Desktop/IFMA Codes/Java/Banco/src/codebank",
+    "out": "/home/kley/Desktop/IFMA Codes/Java/Banco/src/codebank/javadoc",
+    "javadoc_executable": "/usr/lib/jvm/jdk-22-oracle-x64/bin/javadoc",
+    "exclude": [],
+    "raw_params": ""
+}
+
+==== COMMAND ====
+"/usr/lib/jvm/jdk-22-oracle-x64/bin/javadoc" 
+	-sourcepath "/home/kley/Desktop/IFMA Codes/Java/Banco/src/codebank" 
+	-d "/home/kley/Desktop/IFMA Codes/Java/Banco/src/codebank/javadoc" 
+	"/home/kley/Desktop/IFMA Codes/Java/Banco/src/codebank/App.java"
+	"/home/kley/Desktop/IFMA Codes/Java/Banco/src/codebank/Bank.java"
+	"/home/kley/Desktop/IFMA Codes/Java/Banco/src/codebank/Cliente.java"
+	"/home/kley/Desktop/IFMA Codes/Java/Banco/src/codebank/Conta.java"
+	"/home/kley/Desktop/IFMA Codes/Java/Banco/src/codebank/Transfer.java"
+
+
+==== JAVADOC OUTPUT ====
+Picked up _JAVA_OPTIONS: -Dawt.useSystemAAFontSettings=on -Dswing.aatext=true
+Loading source file /home/kley/Desktop/IFMA Codes/Java/Banco/src/codebank/App.java...
+Loading source file /home/kley/Desktop/IFMA Codes/Java/Banco/src/codebank/Bank.java...
+Loading source file /home/kley/Desktop/IFMA Codes/Java/Banco/src/codebank/Cliente.java...
+Loading source file /home/kley/Desktop/IFMA Codes/Java/Banco/src/codebank/Conta.java...
+Loading source file /home/kley/Desktop/IFMA Codes/Java/Banco/src/codebank/Transfer.java...
+Constructing Javadoc information...
+Creating destination directory: "/home/kley/Desktop/IFMA Codes/Java/Banco/src/codebank/javadoc/"
+Building index for all the packages and classes...
+Standard Doclet version 22+36-2370
+Building tree for all the packages and classes...
+/home/kley/Desktop/IFMA Codes/Java/Banco/src/codebank/App.java:6: error: unknown tag. Unregistered custom tag?
+ * @apiNote Não completo
+   ^
+Generating /home/kley/Desktop/IFMA Codes/Java/Banco/src/codebank/javadoc/codebank/App.html...
+/home/kley/Desktop/IFMA Codes/Java/Banco/src/codebank/App.java:12: warning: no description for @param
+     * @param args
+       ^
+/home/kley/Desktop/IFMA Codes/Java/Banco/src/codebank/App.java:14: warning: no description for @throws
+     * @throws Exception
+       ^
+/home/kley/Desktop/IFMA Codes/Java/Banco/src/codebank/App.java:8: warning: use of default constructor, which does not provide a comment
+public class App {
+       ^
+Generating /home/kley/Desktop/IFMA Codes/Java/Banco/src/codebank/javadoc/codebank/Bank.html...
+/home/kley/Desktop/IFMA Codes/Java/Banco/src/codebank/Bank.java:15: error: @param name not found
+     * @param String name_bank
+              ^
+/home/kley/Desktop/IFMA Codes/Java/Banco/src/codebank/Bank.java:16: error: @param name not found
+     * @param int number_bank
+              ^
+/home/kley/Desktop/IFMA Codes/Java/Banco/src/codebank/Bank.java:17: error: @param name not found
+     * @param boolean is_national
+              ^
+/home/kley/Desktop/IFMA Codes/Java/Banco/src/codebank/Bank.java:19: warning: no @param for name_bank
+    public Bank(String name_bank, int number_bank, boolean is_national) {
+           ^
+/home/kley/Desktop/IFMA Codes/Java/Banco/src/codebank/Bank.java:19: warning: no @param for number_bank
+    public Bank(String name_bank, int number_bank, boolean is_national) {
+           ^
+/home/kley/Desktop/IFMA Codes/Java/Banco/src/codebank/Bank.java:19: warning: no @param for is_national
+    public Bank(String name_bank, int number_bank, boolean is_national) {
+           ^
+/home/kley/Desktop/IFMA Codes/Java/Banco/src/codebank/Bank.java:52: error: @param name not found
+     * @param String agencia
+              ^
+/home/kley/Desktop/IFMA Codes/Java/Banco/src/codebank/Bank.java:54: warning: no @param for agencia
+    public void setAgencia(String agencia) {
+                ^
+/home/kley/Desktop/IFMA Codes/Java/Banco/src/codebank/Bank.java:87: error: @param name not found
+     * @param String name_bank
+              ^
+/home/kley/Desktop/IFMA Codes/Java/Banco/src/codebank/Bank.java:89: warning: no @param for name_bank
+    public void setName_bank(String name_bank) {
+                ^
+/home/kley/Desktop/IFMA Codes/Java/Banco/src/codebank/Bank.java:96: error: @param name not found
+     * @param int number_bank
+              ^
+/home/kley/Desktop/IFMA Codes/Java/Banco/src/codebank/Bank.java:98: warning: no @param for number_bank
+    public void setNumber_bank(int number_bank) {
+                ^
+/home/kley/Desktop/IFMA Codes/Java/Banco/src/codebank/Bank.java:105: error: @param name not found
+     * @param boolean is_national
+              ^
+/home/kley/Desktop/IFMA Codes/Java/Banco/src/codebank/Bank.java:107: warning: no @param for is_national
+    public void setIs_national(boolean is_national) {
+                ^
+Generating /home/kley/Desktop/IFMA Codes/Java/Banco/src/codebank/javadoc/codebank/Cliente.html...
+/home/kley/Desktop/IFMA Codes/Java/Banco/src/codebank/Cliente.java:21: error: @param name not found
+     * @param String nome
+              ^
+/home/kley/Desktop/IFMA Codes/Java/Banco/src/codebank/Cliente.java:23: warning: no @param for nome
+    public void setNome(String nome) {
+                ^
+/home/kley/Desktop/IFMA Codes/Java/Banco/src/codebank/Cliente.java:35: error: @param name not found
+     * @param String sobrenome
+              ^
+/home/kley/Desktop/IFMA Codes/Java/Banco/src/codebank/Cliente.java:37: warning: no @param for sobre
+    public void setSobre(String sobre) {
+                ^
+/home/kley/Desktop/IFMA Codes/Java/Banco/src/codebank/Cliente.java:50: error: @param name not found
+     * @param int idade
+              ^
+/home/kley/Desktop/IFMA Codes/Java/Banco/src/codebank/Cliente.java:52: warning: no @param for idade
+    public void setIdade(int idade) {
+                ^
+/home/kley/Desktop/IFMA Codes/Java/Banco/src/codebank/Cliente.java:69: error: @param name not found
+     * @param String cpf
+              ^
+/home/kley/Desktop/IFMA Codes/Java/Banco/src/codebank/Cliente.java:71: warning: no @param for cpf
+    public void setCpf(String cpf) {
+                ^
+/home/kley/Desktop/IFMA Codes/Java/Banco/src/codebank/Cliente.java:6: warning: use of default constructor, which does not provide a comment
+public class Cliente {
+       ^
+Generating /home/kley/Desktop/IFMA Codes/Java/Banco/src/codebank/javadoc/codebank/Conta.html...
+/home/kley/Desktop/IFMA Codes/Java/Banco/src/codebank/Conta.java:96: error: @param name not found
+     * @param String agencia
+              ^
+/home/kley/Desktop/IFMA Codes/Java/Banco/src/codebank/Conta.java:98: warning: no @param for agencia
+    public void setAgencia(String agencia) {
+                ^
+/home/kley/Desktop/IFMA Codes/Java/Banco/src/codebank/Conta.java:110: error: @param name not found
+     * @param int dia
+              ^
+/home/kley/Desktop/IFMA Codes/Java/Banco/src/codebank/Conta.java:111: error: @param name not found
+     * @param int mes
+              ^
+/home/kley/Desktop/IFMA Codes/Java/Banco/src/codebank/Conta.java:112: error: @param name not found
+     * @param int ano
+              ^
+/home/kley/Desktop/IFMA Codes/Java/Banco/src/codebank/Conta.java:114: warning: no @param for dia
+    public void setData(int dia, int mes, int ano) {
+                ^
+/home/kley/Desktop/IFMA Codes/Java/Banco/src/codebank/Conta.java:114: warning: no @param for mes
+    public void setData(int dia, int mes, int ano) {
+                ^
+/home/kley/Desktop/IFMA Codes/Java/Banco/src/codebank/Conta.java:114: warning: no @param for ano
+    public void setData(int dia, int mes, int ano) {
+                ^
+/home/kley/Desktop/IFMA Codes/Java/Banco/src/codebank/Conta.java:126: error: @param name not found
+     * @param int numero
+              ^
+/home/kley/Desktop/IFMA Codes/Java/Banco/src/codebank/Conta.java:128: warning: no @param for numero
+    public void setNumero(int numero) {
+                ^
+/home/kley/Desktop/IFMA Codes/Java/Banco/src/codebank/Conta.java:231: error: invalid use of @return
+     * @return String Nome
+       ^
+/home/kley/Desktop/IFMA Codes/Java/Banco/src/codebank/Conta.java:232: warning: @return has already been specified
+     * @return String Sobrenome
+       ^
+/home/kley/Desktop/IFMA Codes/Java/Banco/src/codebank/Conta.java:232: error: invalid use of @return
+     * @return String Sobrenome
+       ^
+/home/kley/Desktop/IFMA Codes/Java/Banco/src/codebank/Conta.java:233: warning: @return has already been specified
+     * @return String CPF
+       ^
+/home/kley/Desktop/IFMA Codes/Java/Banco/src/codebank/Conta.java:233: error: invalid use of @return
+     * @return String CPF
+       ^
+/home/kley/Desktop/IFMA Codes/Java/Banco/src/codebank/Conta.java:234: warning: @return has already been specified
+     * @return int idade
+       ^
+/home/kley/Desktop/IFMA Codes/Java/Banco/src/codebank/Conta.java:234: error: invalid use of @return
+     * @return int idade
+       ^
+/home/kley/Desktop/IFMA Codes/Java/Banco/src/codebank/Conta.java:245: error: @param name not found
+     * @param Cliente titular
+              ^
+/home/kley/Desktop/IFMA Codes/Java/Banco/src/codebank/Conta.java:247: warning: no @param for titular
+    public void setTitularObject(Cliente titular) {
+                ^
+/home/kley/Desktop/IFMA Codes/Java/Banco/src/codebank/Conta.java:252: error: @param name not found
+     * @param String nome
+              ^
+/home/kley/Desktop/IFMA Codes/Java/Banco/src/codebank/Conta.java:253: error: @param name not found
+     * @param String sobrenome
+              ^
+/home/kley/Desktop/IFMA Codes/Java/Banco/src/codebank/Conta.java:254: error: @param name not found
+     * @param String CPF
+              ^
+/home/kley/Desktop/IFMA Codes/Java/Banco/src/codebank/Conta.java:255: error: @param name not found
+     * @param int idade
+              ^
+/home/kley/Desktop/IFMA Codes/Java/Banco/src/codebank/Conta.java:257: warning: no @param for nome
+    public void setTitularString(String nome, String sobre, 
+                ^
+/home/kley/Desktop/IFMA Codes/Java/Banco/src/codebank/Conta.java:257: warning: no @param for sobre
+    public void setTitularString(String nome, String sobre, 
+                ^
+/home/kley/Desktop/IFMA Codes/Java/Banco/src/codebank/Conta.java:257: warning: no @param for cpf
+    public void setTitularString(String nome, String sobre, 
+                ^
+/home/kley/Desktop/IFMA Codes/Java/Banco/src/codebank/Conta.java:257: warning: no @param for idade
+    public void setTitularString(String nome, String sobre, 
+                ^
+/home/kley/Desktop/IFMA Codes/Java/Banco/src/codebank/Conta.java:266: error: @param name not found
+     * @param String name_bank
+              ^
+/home/kley/Desktop/IFMA Codes/Java/Banco/src/codebank/Conta.java:267: error: @param name not found
+     * @param int num_bank
+              ^
+/home/kley/Desktop/IFMA Codes/Java/Banco/src/codebank/Conta.java:268: error: @param name not found
+     * @param boolean national
+              ^
+/home/kley/Desktop/IFMA Codes/Java/Banco/src/codebank/Conta.java:269: error: @param name not found
+     * @param String agencia_bank
+              ^
+/home/kley/Desktop/IFMA Codes/Java/Banco/src/codebank/Conta.java:271: warning: no @param for name_bank
+    public void setBankString(String name_bank, int num_bank,
+                ^
+/home/kley/Desktop/IFMA Codes/Java/Banco/src/codebank/Conta.java:271: warning: no @param for num_bank
+    public void setBankString(String name_bank, int num_bank,
+                ^
+/home/kley/Desktop/IFMA Codes/Java/Banco/src/codebank/Conta.java:271: warning: no @param for national
+    public void setBankString(String name_bank, int num_bank,
+                ^
+/home/kley/Desktop/IFMA Codes/Java/Banco/src/codebank/Conta.java:271: warning: no @param for agencia_bank
+    public void setBankString(String name_bank, int num_bank,
+                ^
+/home/kley/Desktop/IFMA Codes/Java/Banco/src/codebank/Conta.java:281: error: invalid use of @return
+     * @return
+       ^
+/home/kley/Desktop/IFMA Codes/Java/Banco/src/codebank/Conta.java:281: warning: no description for @return
+     * @return
+       ^
+/home/kley/Desktop/IFMA Codes/Java/Banco/src/codebank/Conta.java:283: warning: no @param for bank
+    public void setBank(Bank bank) {
+                ^
+Generating /home/kley/Desktop/IFMA Codes/Java/Banco/src/codebank/javadoc/codebank/Transfer.html...
+/home/kley/Desktop/IFMA Codes/Java/Banco/src/codebank/Transfer.java:8: warning: use of default constructor, which does not provide a comment
+public class Transfer {
+       ^
+Generating /home/kley/Desktop/IFMA Codes/Java/Banco/src/codebank/javadoc/codebank/package-summary.html...
+Generating /home/kley/Desktop/IFMA Codes/Java/Banco/src/codebank/javadoc/codebank/package-tree.html...
+Generating /home/kley/Desktop/IFMA Codes/Java/Banco/src/codebank/javadoc/overview-tree.html...
+Generating /home/kley/Desktop/IFMA Codes/Java/Banco/src/codebank/javadoc/allclasses-index.html...
+Building index for all classes...
+Generating /home/kley/Desktop/IFMA Codes/Java/Banco/src/codebank/javadoc/allpackages-index.html...
+Generating /home/kley/Desktop/IFMA Codes/Java/Banco/src/codebank/javadoc/index-all.html...
+Generating /home/kley/Desktop/IFMA Codes/Java/Banco/src/codebank/javadoc/search.html...
+Generating /home/kley/Desktop/IFMA Codes/Java/Banco/src/codebank/javadoc/index.html...
+Generating /home/kley/Desktop/IFMA Codes/Java/Banco/src/codebank/javadoc/help-doc.html...
+31 errors
+35 warnings
+
+
