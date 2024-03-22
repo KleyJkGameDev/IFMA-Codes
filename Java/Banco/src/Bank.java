@@ -4,7 +4,6 @@ public class Bank {
     private int number_bank;
     private boolean is_national;
     private String agencia;
-    
 
     public Bank(String name_bank, int number_bank, boolean is_national) {
         this.name_bank = name_bank;
@@ -46,6 +45,5 @@ public class Bank {
     public void setIs_national(boolean is_national) {
         this.is_national = is_national;
     }
-    
     
 }
