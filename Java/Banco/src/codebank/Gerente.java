@@ -31,9 +31,23 @@ public class Gerente extends Funcionario {
     @Override
     public double getBonifica() {
         //return super.getBonifica() + 100
-        return this.salario*0.15;
+        return this.salario*1.4+1000.0;
     }
     public int getNumeroDeFuncionariosGerenciados() {
         return total_funcionarios;
     }
+}
+
+/**
+ * InnerGerente
+ */
+class Diretor extends Gerente{
+
+    public void imprimeDados(){
+        System.out.println("Nome: "+this.getNome());
+        System.out.println("CPF: "+this.getCpf());
+        System.out.println("Salario: "+this.getSalario());
+        System.out.println("Senha: "+this.getSenha());
+    }
+    
 }

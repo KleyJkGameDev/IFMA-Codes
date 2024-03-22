@@ -1,4 +1,5 @@
 package codebank;
+
 /**
  * Classe responsável por gerenciar outras classes
  * @author Kleyton Lima
@@ -61,13 +62,18 @@ public class App {
         System.out.println("Saldo 1: R$" + c1.getSaldo());
         c1.getImprimaDados();
         Gerente gerente = new Gerente();
-        Funcionario teste = gerente;
-        Funcionario func1 = new Funcionario();
+        Tecnico teste = new Tecnico();
+        Tecnico func1 = new Tecnico();
+        ControleBonifica cb = new ControleBonifica();
         teste.setSalario(1000);
+        teste.setNome("Kleytinn");
         gerente.setSalario(1000);
+        gerente.setNome("Jonas");
         func1.setSalario(1000);
-        System.out.println("boni_gerente: "+gerente.getBonifica());
-        System.out.println("boni_func: "+func1.getBonifica());
-        System.out.println("teste: "+teste.getBonifica());
+        func1.setNome("Crys");
+        cb.registra(gerente);
+        cb.registra(func1);
+        cb.registra(teste);
+        System.out.println(cb.getTotal_bonifica());
     }
 }
