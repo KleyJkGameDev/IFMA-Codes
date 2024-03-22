@@ -46,12 +46,13 @@ class Data {
  * Classe que Gerencia a Conta
  */
 
-public class Conta {
+public abstract class Conta {
     private int numero;
     //private Bank banco;
     private Bank bank = new Bank();
     private Data dataAbertura = new Data();
     private Cliente titular = new Cliente();
+    protected String tipo_conta[] = {"Poupança", "Corrente"};
     private double saldo;
     private double credito;
     private double limite;
@@ -70,6 +71,7 @@ public class Conta {
         this.id_conta += Conta.id_geral;
         Conta.id_geral++;
     }
+    public abstract String getTipoConta();
     /**
      * Método que retorna total de contas
      * @return int total_contas
