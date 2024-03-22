@@ -17,8 +17,8 @@ public class App {
     public static void main(String[] args) throws Exception {
         // Conta c1 = new Conta("Kleytinn", "025.771.673-42");
         // Conta c2 = new Conta("Jonas", "001.001.173-09");
-        Conta c1 = new Conta();
-        Conta c2 = new Conta();
+        ContaCorrente c1 = new ContaCorrente();
+        ContaCorrente c2 = new ContaCorrente();
         // Cliente clt1 = new Cliente();
         // Java.IFMA.cliente.Cliente tesCliente = new Java.IFMA.cliente.Cliente();
         // c1.setTitularObject(clt1);
@@ -63,7 +63,7 @@ public class App {
         c1.getImprimaDados();
         Gerente gerente = new Gerente();
         Tecnico teste = new Tecnico();
-        Tecnico func1 = new Tecnico();
+        Diretor func1 = new Diretor();
         ControleBonifica cb = new ControleBonifica();
         teste.setSalario(1000);
         teste.setNome("Kleytinn");
@@ -75,5 +75,10 @@ public class App {
         cb.registra(func1);
         cb.registra(teste);
         System.out.println(cb.getTotal_bonifica());
+        System.out.println(c1.getTipoConta());
+        Autenticavel g = new Diretor();
+        //g.autentica(1234);
+        SistemaInterno si = new SistemaInterno();
+        si.login(g);
     }
 }
