@@ -1,3 +1,4 @@
+package codebank;
 /**
  * Classe responsável por gerenciar dados do Banco
  * @author Kleyton Lima

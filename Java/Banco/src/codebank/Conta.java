@@ -1,3 +1,4 @@
+package codebank;
 /**
  * Classe responsável por gerenciar Data
  */
@@ -64,7 +65,7 @@ public class Conta {
      * ao ser chamado, objeto recebe ele mesmo mais valor 
      * de suporte para geração de númeração única por objeto criado
      */
-    Conta(){
+    public Conta(){
         Conta.total_contas++;
         this.id_conta += Conta.id_geral;
         Conta.id_geral++;
