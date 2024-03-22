@@ -7,8 +7,8 @@
 public class App {
     
     /** 
-     * @param args
      * Classe Responsável por executar o código no geral
+     * @param args
      * @author Kleyton Lima
      * @throws Exception
      */
