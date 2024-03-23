@@ -48,7 +48,7 @@ class Data {
 
 public abstract class Conta {
     private int numero;
-    //private Bank banco;
+    //private Bank banco; 
     private Bank bank = new Bank();
     private Data dataAbertura = new Data();
     private Cliente titular = new Cliente();

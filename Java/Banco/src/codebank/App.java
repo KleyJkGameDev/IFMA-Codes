@@ -47,9 +47,10 @@ public class App {
         // 10001001, false);
         // System.out.println("Nome: "+bank.getName_bank());
         // System.out.println("Numero: "+bank.getNumber_bank());
-        // if (bank.isIs_national()) {
+        // if (bank.isIs_national()) { 
         // System.out.println("Banco Nacional");
         // }else{
+            
         // System.out.println("Banco Internacional");
         // }
         // System.out.println(bank.toString());
