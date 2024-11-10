@@ -101,6 +101,43 @@ void inserirMeio(L *lista, int valor, int position){
     }    
 }
 
+/* Função de remover primeiro item*/
+void removerInicio(L *lista){
+    if (lista->tamanho == 0)
+    {
+        printf("Erro!\nLista VAZIA");
+        exit(1);
+    }
+    A *aux = lista->ini;
+    A *primeiro = aux->prox;
+    free(aux);
+    lista->ini = primeiro;
+    if (lista->ini == NULL)
+    {
+        lista->fim = NULL;
+    }
+    lista->tamanho--;
+}
+
+void removerFim(L *lista){
+    if (lista->tamanho == 0)
+    {
+        printf("Erro!\nLista VAZIA");
+        exit(1);
+    }
+    A *ult = lista->ini;
+    A *pen;
+    for (int i = 0; i < lista; i++)
+    {
+        pen = ult;
+        ult = ult->prox;
+    }
+    pen->prox = NULL;
+    free(ult);
+    lista->fim = pen;
+    lista->tamanho--;
+}
+
 int main(){
     
     
