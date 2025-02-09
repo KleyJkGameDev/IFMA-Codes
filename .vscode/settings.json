@@ -14,6 +14,7 @@
     ],
     "java.project.sourcePaths": [
         "Java/Banco/src",
-        "Java/Banco"
+        "Java/Banco",
+        "Estrutura de Dados/AlgoritmoArvore/src"
     ]
 }
