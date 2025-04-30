@@ -9,7 +9,7 @@ start = time.perf_counter_ns()
 new_times = {}
 
 for i in tqdm(range(0, 15), desc=f"Progresso de ordenação:"):
-    for j in range(0, 10):
+    for j in range(0, 40):
         #lista_tempo = lt.heap_10k(i)
         new_times[f"{gd.lg[i]}"] = lt.heap_10k(i)
         
@@ -20,3 +20,7 @@ print(f"Tempo de execução com I/O: {lt.nano_seg(end - start)} s   ou   {end - 
 print(f"Tempo de execução apenas de CPU: {lt.nano_seg(end_cpu - start_cpu)} s   ou   {end_cpu - start_cpu} ns")
 
 print(new_times)
+
+# LEMBRAR DE TRATAR OS TEMPOS REGISTRADOS
+# GUARDAR OS TEMPOS EM UMA LISTA E TIRAR A MÉDIA
+# SÓ DEPOIS ADICIONAR NO DIC new_times
