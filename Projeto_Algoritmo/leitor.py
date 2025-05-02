@@ -108,7 +108,7 @@ class arq_ord(gd_numb_arq):
                 break
 
         #print(f"Arquivos salvos em: {caminho_arquivo}")
-        self.line_bar.close()
+        line_bar.close()
         
 class arq_ord_new(gd_numb_arq):
     pasta_destin = "/workspaces/IFMA-Codes/Projeto_Algoritmo/ordenados_10k"
