@@ -66,8 +66,8 @@ def heap_10k(num_arq):
     #end = time.perf_counter_ns()
     end_cpu = time.process_time_ns()
     #tempo = nano_seg(end - start)
-    #ins_arq_ord = arq_ord()
-    #ins_arq_ord.grava_numb(hp)
+    ins_arq_ord = arq_ord()
+    ins_arq_ord.grava_numb(hp)
     tempo_cpu = nano_seg(end_cpu - start_cpu)
     #print(f"Depois: {hp[:10]}")
     #print(f"Tempo de execução com I/O: {nano_seg(end - start)} s   ou   {end - start} ns")
@@ -101,10 +101,10 @@ class arq_ord(gd_numb_arq):
             
             if self.contador != 15:
                 #print(f"ARQUIVO {gd.gd_numb_arq.lg[self.contador]} TOTALMENTE ORDENADO E GRAVADO")
-                self.line_bar.update(1)
-                self.contador+=1
+                line_bar.update(1)
+                contador+=1
             else:
-                self.line_bar.close()
+                line_bar.close()
                 break
 
         #print(f"Arquivos salvos em: {caminho_arquivo}")

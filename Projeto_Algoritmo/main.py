@@ -1,4 +1,5 @@
 from leitor import heap_10k, nano_seg
+from leitor import arq_ord
 import time 
 from tqdm import tqdm
 from gerador import gd_numb_arq
@@ -112,5 +113,6 @@ class Ordena_Numb():
         plt.show()
 
 if __name__ == "__main__":
-    ord = Ordena_Numb() # Criando instância da classe
-    ord.progresso_ord() # Chamando método da classe instanciada
+    #ord = Ordena_Numb() # Criando instância da classe
+    #ord.progresso_ord() # Chamando método da classe instanciada
+    heap_10k(14)
