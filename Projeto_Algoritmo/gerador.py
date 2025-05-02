@@ -49,7 +49,12 @@ class gd_numb_arq():
                 break
 
         print(f"Arquivos salvos em: {caminho_arquivo}")
-    
+        
+    def limpa_terminal():
+        if os.name == 'nt':      # Windows
+            os.system('cls')
+        else:                    # Linux, macOS, etc.
+            os.system('clear')
 
 
             
