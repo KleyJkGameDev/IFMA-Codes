@@ -111,6 +111,6 @@ class Ordena_Numb():
         plt.tight_layout()
         plt.show()
 
-
-ord = Ordena_Numb() # Criando instância da classe
-ord.progresso_ord() # Chamando método da classe instanciada
+if __name__ == "__main__":
+    ord = Ordena_Numb() # Criando instância da classe
+    ord.progresso_ord() # Chamando método da classe instanciada
