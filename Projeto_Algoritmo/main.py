@@ -1,9 +1,13 @@
-from leitor import heap_10k, nano_seg
+from leitor import heap_10k, nano_seg, heap_10k_new
 from leitor import arq_ord
 import time 
 from tqdm import tqdm
 from gerador import gd_numb_arq
 import matplotlib.pyplot as plt
+import pandas as pd
+
+import timeit
+from statistics import mean
 
 class Ordena_Numb():
 
@@ -25,6 +29,11 @@ class Ordena_Numb():
         "ln14":[],
         "ln15":[]
     }
+    c_lg = gd_numb_arq.lg.copy()
+    ds = {}
+    for name in c_lg:
+        path = f"/workspaces/IFMA-Codes/Projeto_Algoritmo/numb_arquives10k/rand_numb_{name}.csv"
+        ds[name] = pd.read_csv(path, header=None)[0].tolist()
 
     # Método de execução do algoritmo (40 vezes por arquivo) e funções posteriores
     def progresso_ord(self):
@@ -36,21 +45,60 @@ class Ordena_Numb():
         for i in tqdm(range(0, 15), desc="Progresso de ordenação:", position=0):
             # Repetindo ordenação em cada arquivo
             for j in range(0, 40):
-                self.time_arq[gd_numb_arq.lg[i]].append(heap_10k(i)) # Adicionando tempo individual em time_arq
+                #self.time_arq[self.c_lg[i]].append(heap_10k(i)) # Adicionando tempo individual em time_arq
+                self.time_arq[self.c_lg[i]].append(heap_10k_new(i, self.ds[self.c_lg[i]])) # Adicionando tempo individual em time_arq
+                
+             
+        end = time.perf_counter_ns() # Finaliza tempo com I/O (tempo de espera)
+        end_cpu = time.process_time_ns() # Finaliza tempo de CPU (sem I/O)
                 
         # Looping de somatório e média de tempo por arquivo
         for item in self.time_arq:
             # Salva tempo médio individual e adiciona em new_times
             self.new_times[item] = ( sum(self.time_arq[item]) / (len(self.time_arq[item])) )
             
-        end = time.perf_counter_ns() # Finaliza tempo com I/O (tempo de espera)
-        end_cpu = time.process_time_ns() # Finaliza tempo de CPU (sem I/O)
         print(f"Tempo de execução com I/O: {nano_seg(end - start)} s   ou   {end - start} ns")
         print(f"Tempo de execução apenas de CPU: {nano_seg(end_cpu - start_cpu)} s   ou   {end_cpu - start_cpu} ns")
         self.graf_continuo() # Chama método de gráfico contínuo
         self.graf_med() # Chama método de gráfico de média
         #print(self.new_times)
         return self.time_arq # Retorna todos os tempos salvos em time_arq
+
+    def progresso_ord_new(self):
+        files = self.c_lg[:15]    # lista de 15 nomes
+        time_arq = {name: [] for name in files}
+
+        io_start  = time.perf_counter_ns()
+        cpu_start = time.process_time_ns()
+
+        # enumerate devolve (idx, name)
+        for idx, name in tqdm(list(enumerate(files)), desc="Progresso de ordenação:"):
+            for _ in range(40):
+                t0 = time.perf_counter_ns()
+                heap_10k(idx)            # passa o índice como antes
+                t1 = time.perf_counter_ns()
+                time_arq[name].append(t1 - t0)
+
+        io_end  = time.perf_counter_ns()
+        cpu_end = time.process_time_ns()
+
+        # médias em ns
+        new_times = {name: mean(times) for name, times in time_arq.items()}
+
+        delta_io  = io_end  - io_start
+        delta_cpu = cpu_end - cpu_start
+        print(f"Tempo total (I/O incluído): {nano_seg(delta_io)} s   |   {delta_io} ns")
+        print(f"Tempo só-CPU:              {nano_seg(delta_cpu)} s   |   {delta_cpu} ns")
+
+        # guarda no objeto e desenha gráficos
+        self.time_arq  = time_arq
+        self.new_times = new_times
+        self.graf_continuo()
+        self.graf_med()
+
+        return time_arq
+
+
 
     # Método de Gráfico Scatter - tempos pontuais de cada arquivo
     def graf_pontual(self):
@@ -113,6 +161,7 @@ class Ordena_Numb():
         plt.show()
 
 if __name__ == "__main__":
-    #ord = Ordena_Numb() # Criando instância da classe
-    #ord.progresso_ord() # Chamando método da classe instanciada
-    heap_10k(14)
+    ord = Ordena_Numb() # Criando instância da classe
+    ord.progresso_ord() # Chamando método da classe instanciada
+    ord.progresso_ord_new()
+    #heap_10k(14)
