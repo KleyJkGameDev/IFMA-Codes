@@ -30,14 +30,25 @@ class Ordena_Numb():
         "ln15":[]
     }
     c_lg = gd_numb_arq.lg.copy()
-    ds = {}
-    for name in c_lg:
-        path = f"/workspaces/IFMA-Codes/Projeto_Algoritmo/numb_arquives10k/rand_numb_{name}.csv"
-        ds[name] = pd.read_csv(path, header=None)[0].tolist()
-
+    
+    # Método para captar valores de cada arquivo e salvar como lista em ds
+    def capta_val(self):
+        ds = {}
+        for name in self.c_lg:
+            path = f"/workspaces/IFMA-Codes/Projeto_Algoritmo/numb_arquives10k/rand_numb_{name}.csv"
+            ds[name] = pd.read_csv(path, header=None)[0].tolist()
+        return ds
+    
+    def med_time(self):
+        # Looping de somatório e média de tempo por arquivo
+        for item in self.time_arq:
+            # Salva tempo médio individual e adiciona em new_times
+            self.new_times[item] = ( sum(self.time_arq[item]) / (len(self.time_arq[item])) )
+    
     # Método de execução do algoritmo (40 vezes por arquivo) e funções posteriores
     def progresso_ord(self):
         
+        ds = self.capta_val() # Chama método capta_val e guarda no dicionário ds
         start_cpu = time.process_time_ns() # Starta tempo com I/O (tempo de espera)
         start = time.perf_counter_ns() # Starta tempo de CPU (sem I/O)
         
@@ -46,16 +57,13 @@ class Ordena_Numb():
             # Repetindo ordenação em cada arquivo
             for j in range(0, 40):
                 #self.time_arq[self.c_lg[i]].append(heap_10k(i)) # Adicionando tempo individual em time_arq
-                self.time_arq[self.c_lg[i]].append(heap_10k_new(i, self.ds[self.c_lg[i]])) # Adicionando tempo individual em time_arq
+                self.time_arq[self.c_lg[i]].append(heap_10k_new(i, ds[self.c_lg[i]])) # Adicionando tempo individual em time_arq
                 
              
         end = time.perf_counter_ns() # Finaliza tempo com I/O (tempo de espera)
         end_cpu = time.process_time_ns() # Finaliza tempo de CPU (sem I/O)
                 
-        # Looping de somatório e média de tempo por arquivo
-        for item in self.time_arq:
-            # Salva tempo médio individual e adiciona em new_times
-            self.new_times[item] = ( sum(self.time_arq[item]) / (len(self.time_arq[item])) )
+        self.med_time() # Chama método de média de tempos
             
         print(f"Tempo de execução com I/O: {nano_seg(end - start)} s   ou   {end - start} ns")
         print(f"Tempo de execução apenas de CPU: {nano_seg(end_cpu - start_cpu)} s   ou   {end_cpu - start_cpu} ns")
@@ -88,7 +96,7 @@ class Ordena_Numb():
         delta_io  = io_end  - io_start
         delta_cpu = cpu_end - cpu_start
         print(f"Tempo total (I/O incluído): {nano_seg(delta_io)} s   |   {delta_io} ns")
-        print(f"Tempo só-CPU:              {nano_seg(delta_cpu)} s   |   {delta_cpu} ns")
+        print(f"Tempo só CPU:              {nano_seg(delta_cpu)} s   |   {delta_cpu} ns")
 
         # guarda no objeto e desenha gráficos
         self.time_arq  = time_arq
@@ -160,8 +168,9 @@ class Ordena_Numb():
         plt.tight_layout()
         plt.show()
 
+
 if __name__ == "__main__":
     ord = Ordena_Numb() # Criando instância da classe
-    ord.progresso_ord() # Chamando método da classe instanciada
-    ord.progresso_ord_new()
+    ord.progresso_ord() # Chamando método (HeapSort) otimizado da classe instanciada
+    ord.progresso_ord_new() # Chamando método (HeapSort) não otimizado da classe instanciada
     #heap_10k(14)
