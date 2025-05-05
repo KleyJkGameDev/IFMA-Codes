@@ -43,7 +43,7 @@ class Ordena_Numb():
         # Looping de somatório e média de tempo por arquivo
         for item in self.time_arq:
             # Salva tempo médio individual e adiciona em new_times
-            self.new_times[item] = ( sum(self.time_arq[item]) / (len(self.time_arq[item])) )
+            self.new_times[item] = ( sum(self.time_arq[item][-30:]) / (len(self.time_arq[item])) )
     
     # Método de execução do algoritmo (40 vezes por arquivo) e funções posteriores
     def progresso_ord(self):
@@ -57,7 +57,7 @@ class Ordena_Numb():
             # Repetindo ordenação em cada arquivo
             for j in range(0, 40):
                 #self.time_arq[self.c_lg[i]].append(heap_10k(i)) # Adicionando tempo individual em time_arq
-                self.time_arq[self.c_lg[i]].append(heap_10k_new(i, ds[self.c_lg[i]])) # Adicionando tempo individual em time_arq
+                self.time_arq[self.c_lg[i]].append(heap_10k_new(ds[self.c_lg[i]])) # Adicionando tempo individual em time_arq
                 
              
         end = time.perf_counter_ns() # Finaliza tempo com I/O (tempo de espera)
@@ -133,7 +133,7 @@ class Ordena_Numb():
 
     # Método de Gráfico Contínuo - Tempo por Tentativa de todos os arquivos
     def graf_continuo(self):
-        plt.figure(figsize=(12, 7)) # Define tamanho da figura/gráfico
+        plt.figure(figsize=(24, 14)) # Define tamanho da figura/gráfico
 
         for chave, tempos in self.time_arq.items(): # Para cada chave e valor em time_arq
             # ignora listas vazias
@@ -159,7 +159,7 @@ class Ordena_Numb():
 
     # Método de Gráfico(Scatter) de Média de Tempo de Cada Arquivo
     def graf_med(self):
-        plt.scatter(self.new_times.keys(), self.new_times.values(), color="green", alpha=0.8)
+        plt.scatter(self.new_times.keys(), self.new_times.values(), color="green", alpha=0.5)
         plt.title('Média de Tempo Por Arquivo')
         plt.xlabel('Arquivos Desordenados')
         plt.ylabel('Tempo Médio de Execução (s)')

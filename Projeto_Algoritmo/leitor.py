@@ -75,9 +75,11 @@ def heap_10k(num_arq):
     #print(hp[:10])
     return tempo_cpu
 
-def heap_10k_new(num_arq, vetor):
+def heap_10k_new(vetor):
     start_cpu = time.process_time_ns()
-    hp = heapsort(vetor.copy())
+    #hp = heapsort(vetor.copy())
+    #heapsort(vetor.copy())
+    heapsort(vetor)
     end_cpu = time.process_time_ns()
     tempo_cpu = nano_seg(end_cpu - start_cpu)
     return tempo_cpu
