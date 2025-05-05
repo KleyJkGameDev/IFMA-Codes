@@ -5,6 +5,7 @@ import time
 import os
 import csv
 from tqdm import tqdm
+from numba import njit
 #import functools
 
 #def timed(func): # Para usar adicione @timed acima de cada def
@@ -16,7 +17,47 @@ from tqdm import tqdm
 #        end = time.perf_counter()
 #        print(f"[TIMER] {func.__name__!r} levou {end - start:.4f} s")
 #        return result
-#    return wrapper    
+#    return wrapper   
+
+ # VERSÃO MAIS OTIMIZADA POSSÍVEL 
+@njit # DECORATOR PARA OTIMIZADOR DE COMPILADOR
+def heapsort_fast(arr):
+    # Cache da referência à lista e seu tamanho
+    arr_local = arr
+    n = len(arr_local)
+
+    # Função heapify iterativa (sift-down)
+    def sift_down(start, end):
+        root = start
+        # Enquanto o filho esquerdo existir
+        while True:
+            child = 2 * root + 1
+            if child >= end:
+                break
+            # Seleciona o maior entre filho esquerdo e direito
+            right = child + 1
+            if right < end and arr_local[right] > arr_local[child]:
+                child = right
+            # Se o root já é maior que o maior filho, terminamos
+            if arr_local[root] >= arr_local[child]:
+                break
+            # Senão, faz swap e continua descendo
+            arr_local[root], arr_local[child] = arr_local[child], arr_local[root]
+            root = child
+
+    # 1) Construir max-heap em O(n)
+    # Começamos do último pai até a raiz
+    for start in range(n // 2 - 1, -1, -1):
+        sift_down(start, n)
+
+    # 2) Extrair máximo e refazer heap no prefixo reduzido
+    for end in range(n - 1, 0, -1):
+        # Move o maior (raiz) para a posição 'end'
+        arr_local[0], arr_local[end] = arr_local[end], arr_local[0]
+        # Refaz heap no prefixo [0..end)
+        sift_down(0, end)
+
+    return arr_local
 
 
 def heapify(arr, n, i):
@@ -79,10 +120,32 @@ def heap_10k_new(vetor):
     start_cpu = time.process_time_ns()
     #hp = heapsort(vetor.copy())
     #heapsort(vetor.copy())
-    heapsort(vetor)
+    #heapsort(vetor)
+    heapsort_fast(vetor)
     end_cpu = time.process_time_ns()
     tempo_cpu = nano_seg(end_cpu - start_cpu)
     return tempo_cpu
+
+@njit
+def selection_sort(A):
+    for i in range(A.shape[0] - 1):
+        min_idx = i
+        ai = A[i]
+        for j in range(i + 1, A.shape[0]):
+            if A[j] < ai:
+                min_idx = j
+                ai = A[j]
+        if min_idx != i:
+            A[min_idx], A[i] = A[i], A[min_idx]
+    return A
+
+def select_10k(vetor):
+    start_cpu = time.process_time_ns()
+    selection_sort(vetor)
+    end_cpu = time.process_time_ns()
+    tempo_cpu = nano_seg(end_cpu - start_cpu)
+    return tempo_cpu
+    
 
 #if __name__ == "__main__": # recomendado para execução no próprio script
 #    heap_10k()
