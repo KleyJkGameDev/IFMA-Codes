@@ -37,7 +37,8 @@ class Ordena_Numb():
         for name in self.c_lg:
             path = f"/workspaces/IFMA-Codes/Projeto_Algoritmo/numb_arquives10k/rand_numb_{name}.csv"
             #ds[name] = pd.read_csv(path, header=None)[0].tolist()
-            ds[name] = np.array(pd.read_csv(path, header=None)[0].tolist(), dtype=np.int64)
+            #ds[name] = np.array(pd.read_csv(path, header=None)[0].tolist(), dtype=np.int64)
+            ds[name] = pd.read_csv(path, header=None)[0].to_numpy(dtype=np.int64)
         return ds
     
     def med_time(self):
@@ -47,7 +48,7 @@ class Ordena_Numb():
             self.new_times[item] = ( sum(self.time_arq[item][-30:]) / (len(self.time_arq[item])) )
     
     # Método de execução do algoritmo (40 vezes por arquivo) e funções posteriores
-    def heap_ord(self):
+    def heap_ord(self, q_rep=40):
         
         ds = self.capta_val() # Chama método capta_val e guarda no dicionário ds
         start_cpu = time.process_time_ns() # Starta tempo com I/O (tempo de espera)
@@ -56,7 +57,7 @@ class Ordena_Numb():
         # Looping de ordenação dos arquivos
         for i in tqdm(range(0, 15), desc="Progresso de ordenação:", position=0):
             # Repetindo ordenação em cada arquivo
-            for j in range(0, 40):
+            for j in range(0, q_rep):
                 #self.time_arq[self.c_lg[i]].append(heap_10k(i)) # Adicionando tempo individual em time_arq
                 self.time_arq[self.c_lg[i]].append(heap_10k_new(ds[self.c_lg[i]])) # Adicionando tempo individual em time_arq
                 
@@ -70,15 +71,10 @@ class Ordena_Numb():
         print(f"(HeapSort) - Tempo de execução apenas de CPU: {nano_seg(end_cpu - start_cpu)} s   ou   {end_cpu - start_cpu} ns")
         self.graf_continuo_geral(unidade="ns") # Chama método de gráfico contínuo
         self.graf_med() # Chama método de gráfico de média
-        aux = 0
-        for k in self.time_arq:
-            print(f"{k} --> {sum(self.time_arq[k])} s")
-            aux += sum(self.time_arq[k])
-        print(f"(HeapSort) ---> Soma total = {aux} s")
         return self.time_arq # Retorna todos os tempos salvos em time_arq
 
     # Método de Ordenação Select Sort
-    def select_ord(self):
+    def select_ord(self, q_rep=40):
         
         ds = self.capta_val() # Chama método capta_val e guarda no dicionário ds
         start_cpu = time.process_time_ns() # Starta tempo com I/O (tempo de espera)
@@ -87,7 +83,7 @@ class Ordena_Numb():
         # Looping de ordenação dos arquivos
         for i in tqdm(range(0, 15), desc="Progresso de ordenação:", position=0):
             # Repetindo ordenação em cada arquivo
-            for j in range(0, 40):
+            for j in range(0, q_rep):
                 self.time_arq[self.c_lg[i]].append(select_10k(ds[self.c_lg[i]])) # Adicionando tempo individual em time_arq
                 
              
