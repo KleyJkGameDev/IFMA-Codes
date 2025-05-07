@@ -30,6 +30,7 @@ algo = {
     nome: [random.sample(range(1,1_000), valor) ] for nome, valor in zip(n, d)
 }
 teste = {"teste": [random.sample(range(1, 100), 10)]}
+teste = {nome: [random.sample(range(1, 1_000_000), valor)] for nome, valor in zip(n, d)}
 print(teste)
 
 for i, j in algo.items():

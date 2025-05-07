@@ -1,4 +1,4 @@
-from leitor import heap_10k, nano_seg, heap_10k_new, select_10k
+from leitor import heap_10k, nano_seg, heap_10k_new, select_10k, heapsort_fast
 from matplotlib.ticker import FuncFormatter, MaxNLocator
 import time 
 from tqdm import tqdm
@@ -6,7 +6,6 @@ from gerador import gd_numb_arq
 import matplotlib.pyplot as plt
 import pandas as pd
 import numpy as np
-#import timeit
 from statistics import mean
 
 class Ordena_Numb():
@@ -29,7 +28,7 @@ class Ordena_Numb():
         "ln14":[],
         "ln15":[]
     }
-    c_lg = gd_numb_arq.lg.copy()
+    c_lg = gd_numb_arq.lg.copy() # nomes dos lns
     
     # Método para captar valores de cada arquivo e salvar como lista em ds
     def capta_val(self):
@@ -38,39 +37,55 @@ class Ordena_Numb():
             path = f"/workspaces/IFMA-Codes/Projeto_Algoritmo/numb_arquives10k/rand_numb_{name}.csv"
             #ds[name] = pd.read_csv(path, header=None)[0].tolist()
             #ds[name] = np.array(pd.read_csv(path, header=None)[0].tolist(), dtype=np.int64)
-            ds[name] = pd.read_csv(path, header=None)[0].to_numpy(dtype=np.int64)
+            ##ds[name] = pd.read_csv(path, header=None)[0]#.to_numpy(dtype=np.int64)
+            # Lê a única linha do CSV como um DataFrame de 1 linha x N colunas
+            df = pd.read_csv(path, header=None)
+            # Transforma o DataFrame em um vetor numpy com dtype int64
+            ds[name] = df.iloc[0].to_numpy(dtype=np.int64)
         return ds
     
     def med_time(self):
         # Looping de somatório e média de tempo por arquivo
         for item in self.time_arq:
             # Salva tempo médio individual e adiciona em new_times
-            self.new_times[item] = ( sum(self.time_arq[item][-30:]) / (len(self.time_arq[item])) )
+            #self.new_times[item] = ( sum(self.time_arq[item][-30:]) / (len(self.time_arq[item])) )
+            self.new_times[item] = mean(self.time_arq[item][-30:])
     
     # Método de execução do algoritmo (40 vezes por arquivo) e funções posteriores
-    def heap_ord(self, q_rep=40):
+    def heap_ord(self, q_rep=40, plot=True):
         
         ds = self.capta_val() # Chama método capta_val e guarda no dicionário ds
-        start_cpu = time.process_time_ns() # Starta tempo com I/O (tempo de espera)
-        start = time.perf_counter_ns() # Starta tempo de CPU (sem I/O)
         
-        # Looping de ordenação dos arquivos
-        for i in tqdm(range(0, 15), desc="Progresso de ordenação:", position=0):
-            # Repetindo ordenação em cada arquivo
-            for j in range(0, q_rep):
-                #self.time_arq[self.c_lg[i]].append(heap_10k(i)) # Adicionando tempo individual em time_arq
-                self.time_arq[self.c_lg[i]].append(heap_10k_new(ds[self.c_lg[i]])) # Adicionando tempo individual em time_arq
+        if plot:
+            start_cpu = time.process_time_ns() # Starta tempo com I/O (tempo de espera)
+            start = time.perf_counter_ns() # Starta tempo de CPU (sem I/O)
+            # Looping de ordenação dos arquivos
+            for i in tqdm(range(0, 15), desc="Progresso de ordenação:", position=0):
+                # Repetindo ordenação em cada arquivo
+                for j in range(0, q_rep):
+                    #self.time_arq[self.c_lg[i]].append(heap_10k(i)) # Adicionando tempo individual em time_arq
+                    self.time_arq[self.c_lg[i]].append(heap_10k_new(ds[self.c_lg[i]])) # Adicionando tempo individual em time_arq
+                    
                 
-             
-        end = time.perf_counter_ns() # Finaliza tempo com I/O (tempo de espera)
-        end_cpu = time.process_time_ns() # Finaliza tempo de CPU (sem I/O)
+            end = time.perf_counter_ns() # Finaliza tempo com I/O (tempo de espera)
+            end_cpu = time.process_time_ns() # Finaliza tempo de CPU (sem I/O)
+                    
+            self.med_time() # Chama método de média de tempos
                 
-        self.med_time() # Chama método de média de tempos
+            print(f"(HeapSort) - Tempo de execução com I/O: {nano_seg(end - start)} s   ou   {end - start} ns")
+            print(f"(HeapSort) - Tempo de execução apenas de CPU: {nano_seg(end_cpu - start_cpu)} s   ou   {end_cpu - start_cpu} ns")
             
-        print(f"(HeapSort) - Tempo de execução com I/O: {nano_seg(end - start)} s   ou   {end - start} ns")
-        print(f"(HeapSort) - Tempo de execução apenas de CPU: {nano_seg(end_cpu - start_cpu)} s   ou   {end_cpu - start_cpu} ns")
-        self.graf_continuo_geral(unidade="ns") # Chama método de gráfico contínuo
-        self.graf_med() # Chama método de gráfico de média
+            self.graf_continuo_geral(unidade="ns") # Chama método de gráfico contínuo
+            self.graf_med() # Chama método de gráfico de média
+            print(f"Lista LN1: {ds["ln1"][:10]}")
+        else:
+            print("função apenas para compilação")
+            for i in range(0, 15):
+                # Repetindo ordenação em cada arquivo
+                for j in range(0, 2):
+                    #self.time_arq[self.c_lg[i]].append(heap_10k(i)) # Adicionando tempo individual em time_arq
+                    self.time_arq[self.c_lg[i]].append(heap_10k_new(ds[self.c_lg[i]])) # Adicionando tempo individual em time_arq
+            
         return self.time_arq # Retorna todos os tempos salvos em time_arq
 
     # Método de Ordenação Select Sort
@@ -79,10 +94,11 @@ class Ordena_Numb():
         ds = self.capta_val() # Chama método capta_val e guarda no dicionário ds
         start_cpu = time.process_time_ns() # Starta tempo com I/O (tempo de espera)
         start = time.perf_counter_ns() # Starta tempo de CPU (sem I/O)
-        
+        select_10k(ds.copy())
         # Looping de ordenação dos arquivos
         for i in tqdm(range(0, 15), desc="Progresso de ordenação:", position=0):
             # Repetindo ordenação em cada arquivo
+            #select_10k(ds.copy())
             for j in range(0, q_rep):
                 self.time_arq[self.c_lg[i]].append(select_10k(ds[self.c_lg[i]])) # Adicionando tempo individual em time_arq
                 
@@ -245,6 +261,7 @@ class Ordena_Numb():
 
 if __name__ == "__main__":
     ord = Ordena_Numb() # Criando instância da classe
+    ord.heap_ord(plot=False)
     ord.heap_ord() # Chamando método (HeapSort) otimizado da classe instanciada
     #ord.progresso_ord_new() # Chamando método (HeapSort) não otimizado da classe instanciada
     #ord.select_ord()

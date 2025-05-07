@@ -159,7 +159,7 @@ class arq_ord(gd_numb_arq):
         contador = 0
         total_f = 15
         line_bar = tqdm(total=total_f, desc="Gravando números ordenados", position=1)
-        while(self.contador < total_f):
+        while(contador < total_f):
             #print("TESTA EXECUÇÃO NÃO PLANEJADA DE ARQ_ORD.GRAVA_NUMB EM GERADOR.PY")
 
             caminho_arquivo = os.path.join(self.pasta_destin, f"rand_numb_{self.lg[self.contador]}.csv") # incrementar o nome do arquivo à pasta especificada

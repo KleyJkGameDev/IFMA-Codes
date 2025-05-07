@@ -16,11 +16,13 @@ class gd_numb_arq():
     l = [v for v in range(10_000, 160_000, 10_000)]
 
     lg = [f"ln{i}" for i in range(1, 16)]
+    
 
     def lista_algo(self):
         
         algo_novo = {
-            nome: [random.sample(range(1,1_000_000), valor)] for nome, valor in zip(self.lg, self.l)
+            #nome: [random.sample(range(1, 1_000_000), valor)] for nome, valor in zip(self.lg, self.l)
+            nome: [np.random.randint(0, 1_000_000, size=valor, dtype=np.int64)] for nome, valor in zip(self.lg, self.l)
         }
         
         algo = {
@@ -40,7 +42,7 @@ class gd_numb_arq():
             self.l[13]: random.sample(range(1, 1_000_000), 140_000),
             self.l[14]: random.sample(range(1, 1_000_000), 150_000),
         }
-        return algo
+        return algo_novo
 
     def gera_arquivos(self):
         contador = 0
@@ -54,8 +56,8 @@ class gd_numb_arq():
             with open(caminho_arquivo, "w", newline="") as csvfile:
                 writer = csv.writer(csvfile)
                 #writer.writerow(["numeros"])
-                for numero in tqdm(rand_numb[self.l[contador]], desc="Gerando números", unit="linha"):
-                    writer.writerow([numero])
+                for numero in tqdm(rand_numb[self.lg[contador]], desc="Gerando números", unit="linha"):
+                    writer.writerow(numero)
             print(contador)
             if contador != 15:
                 contador+=1
