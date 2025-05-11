@@ -169,7 +169,7 @@ class arq_ord(gd_numb_arq):
         self.lg = lg
         self.pasta_destin = pasta_destin
         self.contador = 0
-        self.bar = tqdm(total=len(lg), desc="Gravando", position=2)
+        self.bar = tqdm(total=len(lg), desc="Gravando", position=0)
 
     def grava_numb(self, hp):
         name = self.lg[self.contador]                             # pega o nome correto
