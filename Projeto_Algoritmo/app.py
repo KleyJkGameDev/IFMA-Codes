@@ -4,7 +4,7 @@ import numpy as np
 import time
 from statistics import mean
 from tqdm import tqdm
-from leitor import heap_10k_new, selection_sort
+from leitor import heap_10k_new, selection_sort, heapsort_fast
 from main import Ordena_Numb
 import matplotlib.pyplot as plt
 from matplotlib.ticker import FuncFormatter, MaxNLocator
@@ -41,7 +41,7 @@ class OrdenaNumb:
             for _ in range(iterations):
                 start_ns = time.perf_counter_ns()
                 # chamar algoritmo
-                heap_10k_new(arr)
+                heapsort_fast(arr)
                 delta = time.perf_counter_ns() - start_ns
                 self.time_arq[label].append(delta)
         self.med_time()
@@ -129,3 +129,4 @@ if uploaded:
 
         st.subheader("Gráfico de Médias")
         ordena.plot_mean(unit)
+        
