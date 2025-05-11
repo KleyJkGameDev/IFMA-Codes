@@ -4,7 +4,8 @@ import numpy as np
 import time
 from statistics import mean
 from tqdm import tqdm
-from leitor import heap_10k_new, select_10k
+from leitor import heap_10k_new, selection_sort
+from main import Ordena_Numb
 import matplotlib.pyplot as plt
 from matplotlib.ticker import FuncFormatter, MaxNLocator
 
@@ -32,7 +33,9 @@ class OrdenaNumb:
                 self.new_times[label] = mean(times)
 
     def heap_ord(self, iterations=40):
-        ds = self.capta_val()
+        #ds = self.capta_val()
+        od = Ordena_Numb()
+        ds = od.capta_val()
         for label in self.labels:
             arr = ds[label].copy()
             for _ in range(iterations):
@@ -45,13 +48,15 @@ class OrdenaNumb:
         return self.time_arq
 
     def select_ord(self, iterations=40):
-        ds = self.capta_val()
+        #ds = self.capta_val()
+        od = Ordena_Numb()
+        ds = od.capta_val()
         for label in self.labels:
             arr = ds[label].copy()
             for _ in range(iterations):
                 start_ns = time.perf_counter_ns()
                 # chamar algoritmo
-                select_10k(arr)
+                selection_sort(arr)
                 delta = time.perf_counter_ns() - start_ns
                 self.time_arq[label].append(delta)
         self.med_time()

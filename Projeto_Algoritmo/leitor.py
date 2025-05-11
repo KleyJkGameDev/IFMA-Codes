@@ -6,6 +6,7 @@ import os
 import csv
 from tqdm import tqdm
 from numba import njit
+import numpy as np
 #import functools
 
 #def timed(func): # Para usar adicione @timed acima de cada def
@@ -20,7 +21,7 @@ from numba import njit
 #    return wrapper   
 
  # VERSÃO MAIS OTIMIZADA POSSÍVEL 
-@njit # DECORATOR PARA OTIMIZADOR DE COMPILADOR
+@njit(cache=True,fastmath=True) # DECORATOR PARA OTIMIZADOR DE COMPILADOR
 def heapsort_fast(arr):
     # Cache da referência à lista e seu tamanho
     arr_local = arr
@@ -116,6 +117,7 @@ def heap_10k(num_arq):
     #print(hp[:10])
     return tempo_cpu
 
+
 def heap_10k_new(vetor):
     start_cpu = time.process_time_ns()
     #hp = heapsort(vetor.copy())
@@ -126,18 +128,25 @@ def heap_10k_new(vetor):
     tempo_cpu = nano_seg(end_cpu - start_cpu)
     return tempo_cpu
 
-@njit
+@njit(nogil=True, cache=True, fastmath=True)
 def selection_sort(A):
-    for i in range(A.shape[0] - 1):
+    n = A.shape[0]
+    arr = A            # referência local
+    for i in range(n - 1):
         min_idx = i
-        ai = A[i]
-        for j in range(i + 1, A.shape[0]):
-            if A[j] < ai:
+        ai = arr[i]
+        # percorre apenas uma vez, cache de arr[j] em 'v'
+        for j in range(i + 1, n):
+            v = arr[j]
+            if v < ai:
+                ai = v
                 min_idx = j
-                ai = A[j]
         if min_idx != i:
-            A[min_idx], A[i] = A[i], A[min_idx]
-    return A
+            # swap manual usando o cache 'ai'
+            arr[min_idx] = arr[i]
+            arr[i] = ai
+    return arr        # já ordenado in-place
+
 
 def select_10k(vetor):
     start_cpu = time.process_time_ns()
@@ -154,33 +163,26 @@ class arq_ord(gd_numb_arq):
     #print("TESTA EXECUÇÃO NÃO PLANEJADA DE ARQ_ORD EM LEITOR.PY") #########
     pasta_destin = "/workspaces/IFMA-Codes/Projeto_Algoritmo/ordenados_10k" # especificar a pasta
     os.makedirs(pasta_destin, exist_ok=True) # verificar se a pasta existe, senão, criar uma
+    contador = 0
+    def __init__(self, lg, pasta_destin):
+        pasta_destin = "/workspaces/IFMA-Codes/Projeto_Algoritmo/ordenados_10k"
+        self.lg = lg
+        self.pasta_destin = pasta_destin
+        self.contador = 0
+        self.bar = tqdm(total=len(lg), desc="Gravando", position=2)
 
     def grava_numb(self, hp):
-        contador = 0
-        total_f = 15
-        line_bar = tqdm(total=total_f, desc="Gravando números ordenados", position=1)
-        while(contador < total_f):
-            #print("TESTA EXECUÇÃO NÃO PLANEJADA DE ARQ_ORD.GRAVA_NUMB EM GERADOR.PY")
+        name = self.lg[self.contador]                             # pega o nome correto
+        path = os.path.join(self.pasta_destin, f"rand_numb_{name}.csv")
+        with open(path, "w", newline="") as f:
+            writer = csv.writer(f)
+            for x in hp:
+                writer.writerow([int(x)])
+        self.contador += 1
+        self.bar.update(1)
+    def close(self):
+        self.bar.close()
 
-            caminho_arquivo = os.path.join(self.pasta_destin, f"rand_numb_{self.lg[self.contador]}.csv") # incrementar o nome do arquivo à pasta especificada
-            #print(caminho_arquivo)
-
-            with open(caminho_arquivo, "w", newline="") as csvfile:
-                writer = csv.writer(csvfile)
-                #writer.writerow(["numeros"])
-                for numero in hp:
-                    writer.writerow([numero])
-            
-            if contador != 15:
-                #print(f"ARQUIVO {gd.gd_numb_arq.lg[self.contador]} TOTALMENTE ORDENADO E GRAVADO")
-                line_bar.update(1)
-                contador+=1
-            else:
-                line_bar.close()
-                break
-
-        #print(f"Arquivos salvos em: {caminho_arquivo}")
-        line_bar.close()
         
 class arq_ord_new(gd_numb_arq):
     pasta_destin = "/workspaces/IFMA-Codes/Projeto_Algoritmo/ordenados_10k"
