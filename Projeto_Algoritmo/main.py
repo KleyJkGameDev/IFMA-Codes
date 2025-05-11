@@ -29,6 +29,12 @@ class Ordena_Numb():
         "ln14":[],
         "ln15":[]
     }
+    new_time_select = {
+        f"ln{i}": [] for i in range(1, 16)
+    }
+    #time_heap = {
+    #    f"ln{i}": [] for i in range(1, 16) 
+    #}
     c_lg = gd_numb_arq.lg.copy() # nomes dos lns
     
     # Método para captar valores de cada arquivo e salvar como lista em ds
@@ -104,7 +110,7 @@ class Ordena_Numb():
         ds = self.capta_val()
 
         # zera os tempos
-        self.time_arq = {name: [] for name in self.c_lg}
+        #self.time_arq = {name: [] for name in self.c_lg}
 
         # Marca início de wall-time e CPU-time
         t_wall_start = time.perf_counter_ns()
@@ -122,7 +128,7 @@ class Ordena_Numb():
                 for name, fut in tqdm(futures, desc="Parallel sorting", total=len(futures)):
                     fut.result()  # força execução
                     # aqui podemos usar wall-time pra cada
-                    self.time_arq[name].append( 
+                    self.new_time_select[name].append( 
                         (time.perf_counter_ns() - t_wall_start) / 1e9
                     )
         else:
@@ -134,7 +140,7 @@ class Ordena_Numb():
                     t0 = time.perf_counter_ns()
                     selection_sort(arr_copy)
                     delta_s = (time.perf_counter_ns() - t0) / 1e9
-                    self.time_arq[name].append(delta_s)
+                    self.new_time_select[name].append(delta_s)
 
         # mede fim
         t_cpu_end   = time.process_time_ns()
@@ -148,7 +154,7 @@ class Ordena_Numb():
         # você pode chamar os métodos de média e gráfico aqui,
         # lembrando que `self.time_arq[name]` são floats em segundos.
 
-        return self.time_arq
+        return self.new_time_select
 
 
     # Método de Gráfico Scatter - tempos pontuais de cada arquivo
@@ -200,6 +206,78 @@ class Ordena_Numb():
 
         plt.tight_layout()
         plt.show()
+        
+    def grafico_comparativo_log(self):
+        labels = list(self.c_lg)  # ['ln1', 'ln2', ..., 'ln15']
+        heap_means = [self.new_times[label] for label in labels]  # Em nanosegundos
+        select_means = [np.mean(self.new_time_select[label]) * 1e9 for label in labels]  # Convertendo de segundos para ns
+
+        x = np.arange(len(labels))  # Posições das labels no eixo X
+        width = 0.35  # Largura das barras
+
+        fig, ax = plt.subplots(figsize=(12, 6))
+        bars1 = ax.bar(x - width/2, heap_means, width, label='HeapSort (ns)')
+        bars2 = ax.bar(x + width/2, select_means, width, label='SelectionSort (ns)')
+
+        ax.set_xlabel('Arquivos')
+        ax.set_ylabel('Tempo médio (ns)')
+        ax.set_title('Comparação de desempenho: HeapSort vs SelectionSort')
+        ax.set_xticks(x)
+        ax.set_xticklabels(labels)
+        ax.legend()
+        ax.grid(True, linestyle='--', alpha=0.5)
+
+        ax.set_yscale('log')
+
+        plt.tight_layout()
+        plt.show()
+        
+    def graf_comp_norm(self):
+        labels = list(self.c_lg)  # ['ln1', 'ln2', ..., 'ln15']
+        heap_means = [self.new_times[label] for label in labels]  # Em nanosegundos
+        select_means = [np.mean(self.new_time_select[label]) * 1e9 for label in labels]  # Convertendo de segundos para ns
+
+        heap_norm = heap_means / np.max(heap_means)
+        select_norm = select_means / np.max(select_means)
+
+        fig, ax = plt.subplots()
+        x = np.arange(len(labels))
+        width = 0.35
+
+        ax.bar(x - width/2, heap_norm, width, label='HeapSort (normalizado)')
+        ax.bar(x + width/2, select_norm, width, label='SelectionSort (normalizado)')
+
+        ax.set_xticks(x)
+        ax.set_xticklabels(labels)
+        ax.set_ylabel('Tempo relativo')
+        ax.set_title('Desempenho relativo HeapSort vs SelectionSort')
+        ax.legend()
+        plt.grid(True, linestyle='--', alpha=0.5)
+        plt.tight_layout()
+        plt.show()
+
+
+    def graf_comp_sub(self):
+        labels = list(self.c_lg)  # ['ln1', 'ln2', ..., 'ln15']
+        heap_means = [self.new_times[label] for label in labels]  # Em nanosegundos
+        select_means = [np.mean(self.new_time_select[label]) * 1e9 for label in labels]  # Convertendo de segundos para ns
+
+        fig, axs = plt.subplots(2, 1, figsize=(12, 10), sharex=True)
+
+        axs[0].plot(labels, heap_means, color='steelblue')
+        axs[0].set_title('HeapSort (ns)')
+        axs[0].set_ylabel('Tempo médio (ns)')
+        axs[0].grid(True, linestyle='--', alpha=0.5)
+
+        axs[1].plot(labels, select_means, color='darkorange')
+        axs[1].set_title('SelectionSort (ns)')
+        axs[1].set_ylabel('Tempo médio (ns)')
+        axs[1].set_xlabel('Arquivos')
+        axs[1].grid(True, linestyle='--', alpha=0.5)
+
+        plt.tight_layout()
+        plt.show()
+
 
 
     def graf_continuo_geral(self, unidade='micro', y_bins=18):
@@ -273,7 +351,10 @@ class Ordena_Numb():
 if __name__ == "__main__":
     ord = Ordena_Numb() # Criando instância da classe
     ord.heap_ord(plot=False)
-    ord.heap_ord(save=False) # Chamando método (HeapSort) otimizado da classe instanciada
+    ord.heap_ord(q_rep=40, save=False) # Chamando método (HeapSort) otimizado da classe instanciada
     #ord.progresso_ord_new() # Chamando método (HeapSort) não otimizado da classe instanciada
-    #ord.select_ord(q_rep=40)
+    ord.select_ord(q_rep=40)
+    ord.grafico_comparativo_log()
+    ord.graf_comp_norm()
+    ord.graf_comp_sub()
     #heap_10k(14)
