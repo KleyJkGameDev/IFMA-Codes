@@ -1,4 +1,4 @@
-from leitor import heap_10k, nano_seg, heap_10k_new, select_10k, arq_ord, selection_sort, heapsort_fast
+from leitor import nano_seg, heap_10k_new, arq_ord, selection_sort, heapsort_fast
 from matplotlib.ticker import FuncFormatter, MaxNLocator
 import time 
 from tqdm import tqdm
@@ -32,9 +32,6 @@ class Ordena_Numb():
     new_time_select = {
         f"ln{i}": [] for i in range(1, 16)
     }
-    #time_heap = {
-    #    f"ln{i}": [] for i in range(1, 16) 
-    #}
     c_lg = gd_numb_arq.lg.copy() # nomes dos lns
     
     # Método para captar valores de cada arquivo e salvar como lista em ds
@@ -80,7 +77,6 @@ class Ordena_Numb():
                 # Repetindo ordenação em cada arquivo
                     
                 for j in range(0, q_rep):
-                    #self.time_arq[self.c_lg[i]].append(heap_10k(i)) # Adicionando tempo individual em time_arq
                     self.time_arq[self.c_lg[i]].append(heap_10k_new(ds[self.c_lg[i]])) # Adicionando tempo individual em time_arq
                         
             end = time.perf_counter_ns() # Finaliza tempo com I/O (tempo de espera)
@@ -99,18 +95,14 @@ class Ordena_Numb():
             print("função apenas para compilação")
             for i in range(0, 15):
                 # Repetindo ordenação em cada arquivo
-                for j in range(0, 2):
-                    #self.time_arq[self.c_lg[i]].append(heap_10k(i)) # Adicionando tempo individual em time_arq
-                    self.time_arq[self.c_lg[i]].append(heap_10k_new(ds[self.c_lg[i]])) # Adicionando tempo individual em time_arq
+                for j in range(0, 10):
+                    heap_10k_new(ds[self.c_lg[i]])
             
         return self.time_arq # Retorna todos os tempos salvos em time_arq
     
 
     def select_ord(self, q_rep=40, parallel=False):
         ds = self.capta_val()
-
-        # zera os tempos
-        #self.time_arq = {name: [] for name in self.c_lg}
 
         # Marca início de wall-time e CPU-time
         t_wall_start = time.perf_counter_ns()
@@ -149,10 +141,7 @@ class Ordena_Numb():
         # imprime relatórios
         print(f"(SelectSort) Wall-time total: {(t_wall_end - t_wall_start)/1e9:.6f} s")
         print(f"(SelectSort) CPU-time total : {(t_cpu_end  - t_cpu_start )/1e9:.6f} s")
-        self.graf_continuo() # Chama método de gráfico contínuo
         self.graf_sel() # Chama método de gráfico de média
-        # você pode chamar os métodos de média e gráfico aqui,
-        # lembrando que `self.time_arq[name]` são floats em segundos.
 
         return self.new_time_select
 
@@ -264,20 +253,20 @@ class Ordena_Numb():
 
         fig, axs = plt.subplots(2, 1, figsize=(12, 10), sharex=True)
 
-        axs[0].plot(labels, heap_means, color='steelblue')
+        axs[0].scatter(labels, heap_means, color='steelblue')
         axs[0].set_title('HeapSort (ns)')
         axs[0].set_ylabel('Tempo médio (ns)')
         axs[0].grid(True, linestyle='--', alpha=0.5)
 
-        axs[1].plot(labels, select_means, color='darkorange')
+        axs[1].scatter(labels, select_means, color='darkorange')
         axs[1].set_title('SelectionSort (ns)')
         axs[1].set_ylabel('Tempo médio (ns)')
         axs[1].set_xlabel('Arquivos')
-        axs[1].grid(True, linestyle='--', alpha=0.5)
+        axs[1].grid(True, linestyle='--', alpha=0.3)
 
         plt.tight_layout()
         plt.show()
-
+        #plt.scatter(linewidths=0.9)
 
 
     def graf_continuo_geral(self, unidade='micro', y_bins=18):
@@ -322,12 +311,12 @@ class Ordena_Numb():
 
 
     def graf_sel(self):
-        labels = list(self.time_arq.keys())
+        labels = list(self.new_time_select.keys())
         # calcula tempo médio por arquivo
-        means = [np.mean(self.time_arq[name]) for name in labels]
+        means = [np.mean(self.new_time_select[name]) for name in labels]
 
         plt.figure()
-        plt.plot(labels, means)           # usa cores default, sem especificar
+        plt.scatter(labels, means)           # usa cores default, sem especificar
         plt.xlabel('Arquivo')
         plt.ylabel('Tempo médio (s)')
         plt.title('Selection Sort – Tempo médio de execução')
@@ -353,7 +342,7 @@ if __name__ == "__main__":
     ord.heap_ord(plot=False)
     ord.heap_ord(q_rep=40, save=False) # Chamando método (HeapSort) otimizado da classe instanciada
     #ord.progresso_ord_new() # Chamando método (HeapSort) não otimizado da classe instanciada
-    ord.select_ord(q_rep=40)
+    ord.select_ord(q_rep=1)
     ord.grafico_comparativo_log()
     ord.graf_comp_norm()
     ord.graf_comp_sub()

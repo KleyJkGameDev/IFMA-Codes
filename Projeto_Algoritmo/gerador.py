@@ -25,24 +25,8 @@ class gd_numb_arq():
             nome: [np.random.randint(0, 1_000_000, size=valor, dtype=np.int64)] for nome, valor in zip(self.lg, self.l)
         }
         
-        algo = {
-            self.l[0]: random.sample(range(1, 1_000_000), 10_000),
-            self.l[1]: random.sample(range(1, 1_000_000), 20_000),
-            self.l[2]: random.sample(range(1, 1_000_000), 30_000),
-            self.l[3]: random.sample(range(1, 1_000_000), 40_000),
-            self.l[4]: random.sample(range(1, 1_000_000), 50_000),
-            self.l[5]: random.sample(range(1, 1_000_000), 60_000),
-            self.l[6]: random.sample(range(1, 1_000_000), 70_000),
-            self.l[7]: random.sample(range(1, 1_000_000), 80_000),
-            self.l[8]: random.sample(range(1, 1_000_000), 90_000),
-            self.l[9]: random.sample(range(1, 1_000_000), 100_000),
-            self.l[10]: random.sample(range(1, 1_000_000), 110_000),
-            self.l[11]: random.sample(range(1, 1_000_000), 120_000),
-            self.l[12]: random.sample(range(1, 1_000_000), 130_000),
-            self.l[13]: random.sample(range(1, 1_000_000), 140_000),
-            self.l[14]: random.sample(range(1, 1_000_000), 150_000),
-        }
         return algo_novo
+
 
     def gera_arquivos(self):
         contador = 0
@@ -65,6 +49,7 @@ class gd_numb_arq():
                 break
 
         print(f"Arquivos salvos em: {caminho_arquivo}")
+        
         
     def limpa_terminal():
         if os.name == 'nt':      # Windows
