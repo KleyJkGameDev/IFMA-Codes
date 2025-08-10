@@ -93,3 +93,49 @@ class ProcessadorDados:
         def heterocedasticidade(self, y_pred, y_test):
             # Calcular o teste de Levene
             levene_test = stats.levene(y_pred, y_test)
+            
+        def plot_dataframe(self, df, chart_type, title, x_label=None, y_label=None, x_column=None, y_column=None, range_y=[0,2000000], width=800, height=400,showlegend=True,color=None):
+            # Cria o gráfico de acordo com o tipo especificado
+            if chart_type == "bar":
+                fig = px.bar(df, x=x_column, y=y_column, title=title, width=width, height=height)
+                fig.update_layout(showlegend=showlegend,xaxis=dict(showgrid=False), yaxis=dict(showgrid=False))
+            elif chart_type == "line":
+                fig = px.line(df, x=x_column, y=y_column, title=title, width=width, height=height,range_y=range_y)
+                fig.update_layout(showlegend=showlegend,xaxis=dict(showgrid=False), yaxis=dict(showgrid=False))
+            elif chart_type == "boxplot":
+                fig = px.box(df, x=x_column, y=y_column, title=title, width=width, height=height,color=color)
+                fig.update_layout(showlegend=showlegend,xaxis=dict(showgrid=False), yaxis=dict(showgrid=False))
+            elif chart_type == "histogram":
+                fig = px.histogram(df, x=x_column, title=title, width=width, height=height)
+                fig.update_layout(showlegend=showlegend,xaxis=dict(showgrid=False), yaxis=dict(showgrid=False))
+            elif chart_type == "scatter":
+                fig = px.scatter(df, x=x_column, y=y_column, title=title, width=width, height=height)
+                fig.update_layout(showlegend=showlegend,xaxis=dict(showgrid=False), yaxis=dict(showgrid=False))
+            else:
+                # Tipo de gráfico inválido
+                raise ValueError("Invalid chart type. Valid chart types are: bar, line, boxplot, histogram, scatter")
+
+            # Atualiza os rótulos das coordenadas x e y
+            fig.update_layout(xaxis_title=x_label, yaxis_title=y_label)
+
+            # Exibe o gráfico
+            fig.show()
+
+# instanciando a classe
+processador = ProcessadorDados()
+
+# ...Carregando os dados...
+
+# Importando os dados, definindo as colunas de índice e data 
+df_full = processador.importar_dados('/workspaces/IFMA-Codes/Python_Learn/data_science/clean_data-02-partaa', index_col='Unnamed: 0',parse_dates=['Date'])
+# Adicionando uma nova coluna de temperatura em Grau Celsius
+df_full['Temperature_C'] = round((df_full['Temperature']-32)*5/9,2)
+# Adicionando uma nova coluna de dia do mês
+df_full['day'] = df_full['Date'].dt.day
+# Filtrando observações com vendas acima de 10 dólares por semana
+df_full = df_full[(df_full['Weekly_Sales'] > 10)]
+# Criando uma cópia dos dados para controle
+df = df_full.copy()
+
+# Visualizando uma amostra aleatória dos dados
+df.sample(5)
